@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "github.com/The-Spine/auth";
+
+message LoginRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string refresh_token = 1;
+  string token_type = 2;
+  string access_token = 3;
+  int64 expires_in = 4;
+}
+
+message LogoutRequest{}
+
+message LogoutResponse{}
+
+message RefreshTokenRequest{
+  string refresh_token = 1; 
+}
+
+message RefreshTokenResponse{
+  string token_type = 2;
+  string access_token = 3;
+  int64 expires_in = 4;
+}
+
+message UserRequest {
+  string token = 1;
+}
+
+message UserResponse {
+  string user_id = 1;
+  string user_name = 2;
+  string email = 3;
+  string role = 4;
+}
+
+message UserRegisterRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message UserRegisterResponse {
+  string email = 1;
+  string password = 2;
+}
+
+message PasswordResetRequest {
+  string email = 1;
+}
+
+message PasswordResetResponse {
+  bool success = 1;
+}
+
+service AuthService {
+
+  rpc Login(LoginRequest) returns (LoginResponse);
+
+  rpc Logout(LogoutRequest) returns (LogoutResponse);
+
+  rpc RefreshToken(RefreshTokenRequest) returns (RefreshTokenResponse);
+
+  rpc GetUser(UserRequest) returns (UserResponse);
+
+  rpc RegisterUser(UserRegisterRequest) returns (UserRegisterResponse);
+
+  rpc ResetPassword(PasswordResetRequest) returns (PasswordResetResponse);
+
+}
