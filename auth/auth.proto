@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package auth;
 
-option go_package = "github.com/The-Spine/authpb";
+option go_package = "github.com/the-spine/spine-protos-go/auth";
 
 message LoginRequest {
   string username = 1;
