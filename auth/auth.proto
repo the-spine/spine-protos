@@ -47,8 +47,7 @@ message UserRegisterRequest {
 }
 
 message UserRegisterResponse {
-  string email = 1;
-  string password = 2;
+  bool success = 1;
 }
 
 message PasswordResetRequest {
