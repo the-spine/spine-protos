@@ -46,3 +46,4 @@ generate-protos:
 
 clean:
 	rm -rf $(GENERATED_DIR_GO)
+	rm -rf $(GENERATED_DIR_DART)
