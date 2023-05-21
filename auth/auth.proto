@@ -37,8 +37,12 @@ message UserRequest {
 message UserResponse {
   string user_id = 1;
   string user_name = 2;
-  string email = 3;
-  string role = 4;
+  string first_name = 3;
+  string middle_name = 4;
+  string last_name = 5;
+  string email = 6;
+  repeated Role roles = 7;
+  map<string, string> metadata = 8;
 }
 
 message UserRegisterRequest {
@@ -59,6 +63,11 @@ message PasswordResetRequest {
 
 message PasswordResetResponse {
   bool success = 1;
+}
+
+message Role {
+  string role = 1;
+  repeated string permissions = 2;
 }
 
 service AuthService {
