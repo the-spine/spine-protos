@@ -12,8 +12,7 @@ message LoginRequest {
 message LoginResponse {
   string refresh_token = 1;
   string token_type = 2;
-  string access_token = 3;
-  int64 expires_in = 4;
+  int64 expires_in = 3;
 }
 
 message LogoutRequest{}
