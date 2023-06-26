@@ -1,0 +1,63 @@
+syntax = "proto3";
+
+package doctor;
+
+option go_package = "github.com/the-spine/spine-protos-go/doctor";
+
+message Doctor {
+  string id = 1;
+  string name = 2;
+  string specialty = 3;
+  string contact_details = 4;
+}
+
+// Request message for registering a doctor
+message RegisterDoctorRequest {
+  Doctor doctor = 1;
+}
+
+// Response message for doctor registration
+message RegisterDoctorResponse {
+  string doctor_id = 1;
+}
+
+// Request message for updating doctor information
+message UpdateDoctorRequest {
+  string doctor_id = 1;
+  Doctor doctor = 2;
+}
+
+// Response message for doctor information update
+message UpdateDoctorResponse {
+  bool success = 1;
+}
+
+// Request message for retrieving doctor details
+message GetDoctorRequest {
+  string doctor_id = 1;
+  bool return_all = 2;
+  string filter = 3; // Filter criteria
+}
+
+// Response message for doctor details retrieval
+message GetDoctorResponse {
+  repeated Doctor doctors = 1;
+}
+
+// Request message for deleting a doctor
+message DeleteDoctorRequest {
+  string doctor_id = 1;
+}
+
+// Response message for doctor deletion
+message DeleteDoctorResponse {
+  bool success = 1;
+}
+
+// Doctor service API definitions
+service DoctorService {
+  rpc RegisterDoctor(RegisterDoctorRequest) returns (RegisterDoctorResponse);
+  rpc UpdateDoctor(UpdateDoctorRequest) returns (UpdateDoctorResponse);
+  rpc GetDoctor(GetDoctorRequest) returns (GetDoctorResponse);
+  rpc DeleteDoctor(DeleteDoctorRequest) returns (DeleteDoctorResponse);
+}
