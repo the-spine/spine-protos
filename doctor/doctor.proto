@@ -4,60 +4,101 @@ package doctor;
 
 option go_package = "github.com/the-spine/spine-protos-go/doctor";
 
-message Doctor {
-  string id = 1;
-  string name = 2;
-  string specialty = 3;
-  string contact_details = 4;
+enum Day {
+  MONDAY = 0;
+  TUESDAY = 1;
+  WEDNESDAY = 2;
+  THURSDAY = 3;
+  FRIDAY = 4;
+  SATURDAY = 5;
+  SUNDAY = 6;
 }
 
-// Request message for registering a doctor
+message Name {
+  string first_name = 1;
+  string middle_name = 2;
+  string last_name = 3;
+}
+
+message Address {
+  string street = 1;
+  string city = 2;
+  string state = 3;
+  string country = 4;
+  string postal_code = 5;
+}
+
+message Education {
+  string degree = 1;
+  string university = 2;
+  int32 graduation_year = 3;
+}
+
+message ContactDetails {
+  string phone_number = 1;
+  string email = 2;
+  string website = 3;
+  string emergency_contact = 4;
+  Address address = 5;
+}
+
+message Doctor {
+  string id = 1;
+  Name name = 2;
+  string specialty = 3;
+  repeated Education education = 4;
+  ContactDetails contact_details = 5;
+  repeated Day available_days = 6; // Available days of the week
+  repeated int32 available_hours = 7; // Available hours of the day
+}
+
 message RegisterDoctorRequest {
   Doctor doctor = 1;
 }
 
-// Response message for doctor registration
 message RegisterDoctorResponse {
   string doctor_id = 1;
 }
 
-// Request message for updating doctor information
 message UpdateDoctorRequest {
   string doctor_id = 1;
   Doctor doctor = 2;
 }
 
-// Response message for doctor information update
 message UpdateDoctorResponse {
   bool success = 1;
 }
 
-// Request message for retrieving doctor details
+// TODO:GT020 Add Filter Method for Doctors
 message GetDoctorRequest {
   string doctor_id = 1;
   bool return_all = 2;
-  string filter = 3; // Filter criteria
 }
 
-// Response message for doctor details retrieval
 message GetDoctorResponse {
   repeated Doctor doctors = 1;
 }
 
-// Request message for deleting a doctor
 message DeleteDoctorRequest {
   string doctor_id = 1;
 }
 
-// Response message for doctor deletion
 message DeleteDoctorResponse {
   bool success = 1;
 }
 
-// Doctor service API definitions
+message CheckDoctorAvailabilityRequest {
+  string doctor_id = 1;
+}
+
+message CheckDoctorAvailabilityResponse {
+  bool available = 1;
+}
+
 service DoctorService {
   rpc RegisterDoctor(RegisterDoctorRequest) returns (RegisterDoctorResponse);
-  rpc UpdateDoctor(UpdateDoctorRequest) returns (UpdateDoctorResponse);
   rpc GetDoctor(GetDoctorRequest) returns (GetDoctorResponse);
+  rpc CheckDoctorAvailability(CheckDoctorAvailabilityRequest) returns (CheckDoctorAvailabilityResponse);
+  rpc UpdateDoctor(UpdateDoctorRequest) returns (UpdateDoctorResponse);
   rpc DeleteDoctor(DeleteDoctorRequest) returns (DeleteDoctorResponse);
 }
