@@ -1,0 +1,94 @@
+syntax = "proto3";
+
+package patient;
+
+option go_package = "github.com/the-spine/spine-protos-go/patient";
+
+message Name {
+  string first_name = 1;
+  string middle_name = 2;
+  string last_name = 3;
+}
+
+message Address {
+  string street = 1;
+  string city = 2;
+  string state = 3;
+  string country = 4;
+  string postal_code = 5;
+}
+
+message ContactDetails {
+  string phone_number = 1;
+  string email = 2;
+  string emergency_contact = 3;
+  Address address = 4;
+}
+
+message MedicalRecord {
+  int32 record_id = 1;
+  string date = 2;
+  string condition = 3;
+  string treatment = 4;
+}
+
+message MedicalHistory {
+  string patient_id = 1;
+  repeated MedicalRecord records = 2;
+}
+
+message Patient {
+  string id = 1;
+  Name name = 2;
+  ContactDetails contact_details = 3;
+}
+
+message RegisterPatientRequest {
+  Patient patient = 1;
+}
+
+message RegisterPatientResponse {
+  string patient_id = 1;
+}
+
+message UpdatePatientRequest {
+  string patient_id = 1;
+  Patient patient = 2;
+}
+
+message UpdatePatientResponse {
+  bool success = 1;
+}
+
+message GetPatientRequest {
+  string patient_id = 1;
+  bool return_all = 2;
+}
+
+message GetPatientResponse {
+  repeated Patient patients = 1;
+}
+
+message DeletePatientRequest {
+  string patient_id = 1;
+}
+
+message DeletePatientResponse {
+  bool success = 1;
+}
+
+message GetMedicalHistoryRequest {
+  string patient_id = 1;
+}
+
+message GetMedicalHistoryResponse {
+  MedicalHistory medical_history = 1;
+}
+
+service PatientService {
+  rpc RegisterPatient(RegisterPatientRequest) returns (RegisterPatientResponse);
+  rpc GetPatient(GetPatientRequest) returns (GetPatientResponse);
+  rpc UpdatePatient(UpdatePatientRequest) returns (UpdatePatientResponse);
+  rpc DeletePatient(DeletePatientRequest) returns (DeletePatientResponse);
+  rpc GetMedicalHistory(GetMedicalHistoryRequest) returns (GetMedicalHistoryResponse);
+}
