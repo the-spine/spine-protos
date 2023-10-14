@@ -4,7 +4,7 @@ package doctor;
 
 option go_package = "github.com/the-spine/spine-protos-go/doctor";
 
-enum Day {
+enum WeekDay {
   MONDAY = 0;
   TUESDAY = 1;
   WEDNESDAY = 2;
@@ -46,9 +46,9 @@ message Doctor {
   string id = 1;
   Name name = 2;
   string specialty = 3;
-  repeated Education education = 4;
+  repeated Education educations = 4;
   ContactDetails contact_details = 5;
-  repeated Day available_days = 6; // Available days of the week
+  repeated WeekDay available_days = 6; // Available days of the week
   repeated int32 available_hours = 7; // Available hours of the day
 }
 
