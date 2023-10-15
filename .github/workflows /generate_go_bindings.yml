@@ -1,4 +1,4 @@
-name: Generate Go Bindings for Spine Protos
+name: Generate Bindings for Spine Protos
 
 on:
   push:
