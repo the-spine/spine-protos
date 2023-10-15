@@ -14,6 +14,12 @@ enum WeekDay {
   SUNDAY = 6;
 }
 
+message AvailableHour {
+  WeekDay week_day = 1;
+  int32 start_hour = 2;
+  int32 end_hour = 3;
+}
+
 message Name {
   string first_name = 1;
   string middle_name = 2;
@@ -48,8 +54,7 @@ message Doctor {
   string specialty = 3;
   repeated Education educations = 4;
   ContactDetails contact_details = 5;
-  repeated WeekDay available_days = 6; // Available days of the week
-  repeated int32 available_hours = 7; // Available hours of the day
+  repeated AvailableHour available_hours = 6;
 }
 
 message RegisterDoctorRequest {
@@ -87,18 +92,20 @@ message DeleteDoctorResponse {
   bool success = 1;
 }
 
-message CheckDoctorAvailabilityRequest {
+message DoctorAvailabilityRequest {
   string doctor_id = 1;
+  WeekDay week_day = 2;
+  int32 current_hour = 3;
 }
 
-message CheckDoctorAvailabilityResponse {
+message DoctorAvailabilityResponse {
   bool available = 1;
 }
 
 service DoctorService {
   rpc RegisterDoctor(RegisterDoctorRequest) returns (RegisterDoctorResponse);
   rpc GetDoctor(GetDoctorRequest) returns (GetDoctorResponse);
-  rpc CheckDoctorAvailability(CheckDoctorAvailabilityRequest) returns (CheckDoctorAvailabilityResponse);
+  rpc CheckDoctorAvailability(DoctorAvailabilityRequest) returns (DoctorAvailabilityResponse);
   rpc UpdateDoctor(UpdateDoctorRequest) returns (UpdateDoctorResponse);
   rpc DeleteDoctor(DeleteDoctorRequest) returns (DeleteDoctorResponse);
 }
