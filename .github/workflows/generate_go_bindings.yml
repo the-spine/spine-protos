@@ -63,20 +63,26 @@ jobs:
           go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
           dart pub global activate protoc_plugin
 
-      - name: Generate Go Bindings
+      - name: Generate Bindings
         run: |
           cd spine-protos
           export GENERATED_DIR_GO=../spine-protos-go
           export GENERATED_DIR_DART=../spine-protos-dart
           make
+
+      - name: Push Go Bindings
+        run: |
           git config --global user.name "GitHub Actions"
           git config --global user.email "actions@github.com"
           commit_message="${{ github.event.head_commit.message }}"
           cd ../spine-protos-go
-          git add .
-          git commit -m "$commit_message"
-          git push
+          git add . && git diff-index --quiet HEAD || git commit -m "$commit_message" && git push        
+
+
+      - name: Push Dart Bindings
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          commit_message="${{ github.event.head_commit.message }}"
           cd ../spine-protos-dart
-          git add .
-          git commit -m "$commit_message"
-          git push
+          git add . && git diff-index --quiet HEAD || git commit -m "$commit_message" && git push        
