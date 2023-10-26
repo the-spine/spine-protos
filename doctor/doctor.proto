@@ -45,7 +45,6 @@ message ContactDetails {
   string email = 2;
   string website = 3;
   string emergency_contact = 4;
-  Address address = 5;
 }
 
 message Doctor {
@@ -55,6 +54,7 @@ message Doctor {
   repeated Education educations = 4;
   ContactDetails contact_details = 5;
   repeated AvailableHour available_hours = 6;
+  Address address = 7;
 }
 
 message RegisterDoctorRequest {
