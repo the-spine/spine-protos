@@ -22,7 +22,6 @@ message ContactDetails {
   string phone_number = 1;
   string email = 2;
   string emergency_contact = 3;
-  Address address = 4;
 }
 
 message MedicalRecord {
@@ -30,6 +29,12 @@ message MedicalRecord {
   string date = 2;
   string condition = 3;
   string treatment = 4;
+  string observation = 5;
+}
+
+message Allergy{
+  string name = 1;
+  int32 level = 2;
 }
 
 message MedicalHistory {
@@ -41,6 +46,8 @@ message Patient {
   string id = 1;
   Name name = 2;
   ContactDetails contact_details = 3;
+  Address address = 4;
+  repeated Allergy allergies = 5;
 }
 
 message RegisterPatientRequest {
