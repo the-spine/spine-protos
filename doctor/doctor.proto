@@ -55,6 +55,8 @@ message Doctor {
   ContactDetails contact_details = 5;
   repeated AvailableHour available_hours = 6;
   Address address = 7;
+  int64 birth_date = 8;
+  string gender = 9;
 }
 
 message RegisterDoctorRequest {
