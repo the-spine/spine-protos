@@ -1,5 +1,5 @@
 SHELL := /bin/bash
-PROTO_PACKAGE_NAMES = auth doctor patient
+PROTO_PACKAGE_NAMES = auth doctor patient hospital
 PROTO_SRC_DIR= .
 GENERATED_DIR_GO ?= ./generated_go
 GENERATED_DIR_DART ?= ./generated_dart

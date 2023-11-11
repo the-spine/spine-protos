@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package hospital;
+
+option go_package = "github.com/the-spine/spine-protos-go/hospital";
+
+message Hospital{
+  string name = 1;
+  repeated HospitalBranch branches = 2;
+}
+
+message HospitalBranch {
+  string name = 1;
+  Address address = 2;
+}
+
+message Address {
+  string street = 1;
+  string city = 2;
+  string state = 3;
+  string country = 4;
+  string postal_code = 5;
+}
+
+message RegisterHospitalRequest{
+  Hospital hospital = 1;
+}
+message RegisterHospitalResponse{
+  bool success = 1;
+}
+
+message AddHospitalBranchesRequest{
+  repeated HospitalBranch branches = 1;
+}
+
+message AddHospitalBranchesResponse{
+  bool success = 1;
+}
+
+service HospitalService {
+  rpc RegisterHospital(RegisterHospitalRequest) returns (RegisterHospitalResponse);
+}
