@@ -26,7 +26,7 @@ message ContactDetails {
 
 message MedicalRecord {
   int32 record_id = 1;
-  string date = 2;
+  int64 date = 2;
   string condition = 3;
   string treatment = 4;
   string observation = 5;
