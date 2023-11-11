@@ -30,11 +30,13 @@ message MedicalRecord {
   string condition = 3;
   string treatment = 4;
   string observation = 5;
+  string doctor_id = 6;
 }
 
 message Allergy{
   string name = 1;
   int32 level = 2;
+  string cause = 3;
 }
 
 message MedicalHistory {
@@ -95,10 +97,30 @@ message GetMedicalHistoryResponse {
   MedicalHistory medical_history = 1;
 }
 
+message AddMedicalRecordsRequest{
+  string patient_id = 1;
+  repeated MedicalRecord medical_records = 2;
+}
+
+message AddMedicalRecordsResponse{
+  bool success = 1;
+}
+
+message AddAllergiesRequest{
+  string patient_id = 1;
+  repeated Allergy allergies = 2;
+}
+
+message AddAllergiesResponse{
+  bool success = 1;
+}
+
 service PatientService {
   rpc RegisterPatient(RegisterPatientRequest) returns (RegisterPatientResponse);
   rpc GetPatient(GetPatientRequest) returns (GetPatientResponse);
   rpc UpdatePatient(UpdatePatientRequest) returns (UpdatePatientResponse);
   rpc DeletePatient(DeletePatientRequest) returns (DeletePatientResponse);
   rpc GetMedicalHistory(GetMedicalHistoryRequest) returns (GetMedicalHistoryResponse);
+  rpc AddMedicalRecords(AddMedicalRecordsRequest) returns (AddMedicalRecordsResponse);
+  rpc AddAllergies(AddAllergiesRequest) returns (AddAllergiesResponse);
 }
